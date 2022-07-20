@@ -36,8 +36,8 @@ export default function LoggedInStack() {
             tabBarIcon: ({size,focused,black}) => {
               return (
                 <Image
-                  style={{ width: 80, height: 50 }}
-                  source={require('../assets/imageedit_1_3847856363.png')}
+                  style={{ resizeMode:'contain', width: 80, height: 50 }}
+                  source={require('../assets/tabicon.png')}
                 />
               );
             },
