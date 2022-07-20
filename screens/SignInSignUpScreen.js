@@ -72,7 +72,7 @@ export default function SignInSignUpScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
-          style={{resizeMode:'contain', height: 300, width: 500}}
+          style={{resizeMode:'contain', height: 250}}
           source={require('../assets/imageedit_1_3847856363.png')}
         />
       <Text style={styles.title}>
@@ -148,7 +148,7 @@ export default function SignInSignUpScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'lavender',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   },
   inputView: {
-    backgroundColor: "#FFC0CB",
+    backgroundColor: "White",
     borderRadius: 30,
     width: "70%",
     height: 45,
