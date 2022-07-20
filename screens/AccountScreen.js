@@ -15,7 +15,7 @@ import { changeModeAction } from "../redux/ducks/accountPref";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { logOutAction } from "../redux/ducks/blogAuth";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function AccountScreen({ navigation }) {
   const profilePicture = useSelector((state)=> state.accountPrefs.profilePicture);
