@@ -5,6 +5,7 @@ import AccountStack from '../components/AccountStack';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { useSelector } from "react-redux";
 import { Image } from 'react-native';
+import ChatScreen from '../screens/ChatScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,6 +44,7 @@ export default function LoggedInStack() {
             },
           }}
         />
+      <Tab.Screen name="Chats" component={ChatScreen} />
       <Tab.Screen name="Settings" component={AccountStack} />
     </Tab.Navigator>
   );
