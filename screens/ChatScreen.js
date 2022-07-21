@@ -1,20 +1,33 @@
+<<<<<<< HEAD
 import React from 'react';
 import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+=======
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity
+} from "react-native";
+>>>>>>> 26792b483305947ef607469e04303fc4ee470a0a
 
-const wait = (timeout) => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
-}
+import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
+import { useSelector } from "react-redux";
+import ChatRoomScreen from "./ChatRoomScreen";
 
-const ChatScreen = () => {
-  const [refreshing, setRefreshing] = React.useState(false);
 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+export default function ChatScreen({ navigation, route }) {
+  const token = useSelector((state)=>state.auth.token);
+  const isDark = useSelector((state) => state.accountPrefs.isDark);
+  const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
+ 
+
+
+  
 
   return (
+<<<<<<< HEAD
     <SafeAreaView style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollView}
@@ -34,13 +47,22 @@ const ChatScreen = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
+=======
+    <View style={styles.container}>
+      <Text style={additionalStyles.chatTitle}>ChatScreen</Text>
+      <TouchableOpacity onPress={() =>
+        navigation.navigate('ChatRoomScreen')}><Text styles={additionalStyles.chatButton}>go to chat room</Text></TouchableOpacity>
+    </View>
+>>>>>>> 26792b483305947ef607469e04303fc4ee470a0a
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+const additionalStyles = StyleSheet.create({
+  chatButton: {
+    marginTop:100
+    
   },
+<<<<<<< HEAD
   scrollView: {
     flex: 1,
     backgroundColor: 'pink',
@@ -52,7 +74,10 @@ const styles = StyleSheet.create({
     marginRight: 25,
     marginTop: '20%',
     
+=======
+  chatTitle: {
+    color:"red",
+>>>>>>> 26792b483305947ef607469e04303fc4ee470a0a
   }
+  
 });
-
-export default ChatScreen;
