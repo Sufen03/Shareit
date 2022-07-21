@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
-  TouchableOpacity
+  StyleSheet
 } from "react-native";
 
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
-import ChatRoomScreen from "./ChatRoomScreen";
 
-
-export default function ChatScreen({ navigation, route }) {
+export default function ChatRoomScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token);
   const isDark = useSelector((state) => state.accountPrefs.isDark);
   const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
@@ -22,20 +19,21 @@ export default function ChatScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={additionalStyles.chatTitle}>ChatScreen</Text>
-      <TouchableOpacity onPress={() =>
-        navigation.navigate('ChatRoomScreen')}><Text styles={additionalStyles.chatButton}>go to chat room</Text></TouchableOpacity>
+      <Text>Chat Room Screen</Text>
     </View>
   );
 }
 
 const additionalStyles = StyleSheet.create({
-  chatButton: {
-    marginTop:100
-    
+  input: {
+    fontSize: 24,
+    borderWidth: 1,
+    borderColor: "black",
+    marginBottom: 15,
   },
-  chatTitle: {
-    color:"red",
-  }
-  
+  label: {
+    fontSize: 28,
+    marginBottom: 10,
+    marginLeft: 5,
+  },
 });
