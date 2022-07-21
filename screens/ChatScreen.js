@@ -1,5 +1,5 @@
 import React from 'react';
-import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
+import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
 
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -22,9 +22,11 @@ const ChatScreen = () => {
             refreshing={refreshing}
             onRefresh={onRefresh}
           />
-        }
-      >
-        <Text>Pull down to see RefreshControl indicator</Text>
+        }>
+        <View style={styles.innerContainer}>
+            <Image style={{width: 50, height: 50}} source={require('../assets/profile-image.jpg')}/>
+            <Text>chat display</Text>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -40,6 +42,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  innerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
+  }
 });
 
 export default ChatScreen;
