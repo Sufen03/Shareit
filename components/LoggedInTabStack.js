@@ -23,27 +23,18 @@ export default function LoggedInStack() {
           let iconName;
 
           if (route.name === "Blog") {
-            iconName = "comments";
+            iconName = "home";
           } else if (route.name === "Settings") {
             iconName = "cog";
+          } else if (route.name === "Chats") {
+            iconName = "comments";
           }
           // You can return any component that you like here!
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
       })}
     >
-      <Tab.Screen name="Blog" component={BlogStack} options={{
-            title: 'My Blog',
-            tabBarIcon: ({size,focused,black}) => {
-              return (
-                <Image
-                  style={{ resizeMode:'contain', width: 80, height: 50 }}
-                  source={require('../assets/tabicon.png')}
-                />
-              );
-            },
-          }}
-        />
+      <Tab.Screen name="Blog" component={BlogStack} />
       <Tab.Screen name="Chats" component={ChatScreen} />
       <Tab.Screen name="Settings" component={AccountStack} />
     </Tab.Navigator>
