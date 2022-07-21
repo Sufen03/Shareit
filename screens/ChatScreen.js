@@ -1,5 +1,6 @@
 import React from 'react';
 import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -25,7 +26,11 @@ const ChatScreen = () => {
         }>
         <View style={styles.innerContainer}>
             <Image style={{width: 50, height: 50}} source={require('../assets/profile-image.jpg')}/>
-            <Text>chat display</Text>
+            <TouchableOpacity>
+            <View>
+                <Text>chat display</Text>
+            </View>
+            </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -39,12 +44,14 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     backgroundColor: 'pink',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   innerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-between',
+    marginLeft: 25,
+    marginRight: 25,
+    marginTop: '20%',
+    
   }
 });
 
