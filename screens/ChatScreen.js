@@ -24,7 +24,7 @@ export default function ChatScreen({ navigation, route }) {
     <View style={styles.container}>
       <Text style={additionalStyles.chatTitle}>ChatScreen</Text>
       <TouchableOpacity onPress={() =>
-        navigation.navigate('ChatRoomScreen')}><Text styles={additionalStyles.chatButton}>go to chat room</Text></TouchableOpacity>
+        navigation.navigate('ChatRoomScreen')}><Text styles={additionalStyles.chatButton}>go to chatting room</Text></TouchableOpacity>
     </View>
   );
 }
