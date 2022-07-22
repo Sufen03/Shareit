@@ -43,7 +43,7 @@ export default function AccountScreen({ navigation }) {
     }).start()
   }
   
-  async function getUsername() {
+  /*async function getUsername() {
     
     
     try {
@@ -65,7 +65,7 @@ export default function AccountScreen({ navigation }) {
       }
       // We should probably go back to the login screen???
     }
-  }
+  }*/
 
   function signOut() {
     dispatch(logOutAction());
@@ -77,7 +77,7 @@ export default function AccountScreen({ navigation }) {
     dispatch(changeModeAction());
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     
     // Check for when we come back to this screen
     const removeListener = navigation.addListener("focus", () => {
@@ -87,13 +87,13 @@ export default function AccountScreen({ navigation }) {
     });
     getUsername();
     return removeListener;
-  }, []);
+  }, []);*/
 
   return (
     <View style={[styles.container, { alignItems: "center" }]}>
       <Text style={[styles.title, styles.text, { marginTop: 30, fontSize: 42 }]}>
         {" "}
-        Hello {username} !
+        Hello Zachary !
       </Text>
       <TouchableWithoutFeedback onPress={changePicSize}>
       <Animated.Image
