@@ -48,9 +48,9 @@ export default function IndexScreen({ navigation, route }) {
       return "completed"
     } catch (error) {
       
-      if (error.response.data.error = "Invalid token") {
+      /*if (error.response.data.error = "Invalid token") {
         navigation.navigate("SignInSignUp");
-      }
+      }*/
     }
   }
 
