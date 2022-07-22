@@ -32,12 +32,14 @@ export default function AccountScreen({ navigation }) {
       (picSize, {
       toValue: 1,
       duration: 500,
+      useNativeDriver: false,
     })).start()
     Animated.spring(picSize, {
       toValue: 300,
       duration: 3500,
       friction: 2,
       tension: 140,
+      useNativeDriver: false,
     }).start()
   }
   
