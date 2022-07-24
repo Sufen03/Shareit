@@ -3,6 +3,7 @@ import { LayoutAnimation, Platform, StyleSheet, ScrollView, View, Text, TextInpu
 import firebase from "../database/firebaseDB";
 import { useNavigation } from '@react-navigation/native';
 const auth = firebase.auth();
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -27,6 +28,8 @@ export default function SignInSignUpScreen({ navigation }) {
 
   const [isForget, setIsForget] = useState(false)
 
+  
+
   async function login() {	
     try {	
       await auth.signInWithEmailAndPassword(email, password);	
@@ -37,30 +40,17 @@ export default function SignInSignUpScreen({ navigation }) {
   }
 
   async function signUp() {
-    if (password != confirmPassword) {
-      setErrorText("Your passwords don't match. Check and try again.")
+    if(email === '' && password === '') {
+      Alert.alert('Enter details to signup!')
     } else {
-      try {
-        setLoading(true);
-        const response = await axios.post(API + API_SIGNUP, {
-          email,
-          password,
-        });
-        if (response.data.Error) {
-          // We have an error message for if the user already exists
-          setErrorText(response.data.Error);
-          setLoading(false);
-        } else {
-          console.log("Success signing up!");
-          setLoading(false);
-          login();
-        }
-      } catch (error) {
-        setLoading(false);
-        console.log("Error logging in!");
-        console.log(error.response);
-        setErrorText(error.response.data.description);
-      }
+      ({
+        setLoading: true,
+      })
+      firebase
+      .auth()
+      .createUserWithEmailAndPassword(email,password)
+        navigation.navigate('Logged In')
+      .catch(error => ({ errorMessage: error.message }))      
     }
   }
 
