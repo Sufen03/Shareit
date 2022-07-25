@@ -11,6 +11,7 @@ import axios from "axios";
 import { API, API_CREATE } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
+import firebase from "../database/firebaseDB";
 
 export default function CreateScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token);
@@ -19,7 +20,6 @@ export default function CreateScreen({ navigation, route }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  
   const image = route.params?.image
   
   
@@ -29,16 +29,23 @@ export default function CreateScreen({ navigation, route }) {
       content: content,
       image: image,
     };
-    try {
+
       
-      const response = await axios.post(API + API_CREATE, post, {
-        headers: { Authorization: `JWT ${token}` },
-      });
-      
-      navigation.navigate("Index", { post: post });
-    } catch (error) {
-      
-    }
+  }
+
+  useEffect(() => {	
+    if (route.params?.text) {	
+      const newNote = {	
+        title: route.params.text,	
+        done: false,	
+        id: notes.length.toString(),	
+      };	
+      setNotes([...notes, newNote]);	
+    }	
+  }, [route.params?.text]);	
+  
+  function savePost() {	
+    navigation.navigate("Index");	
   }
 
   return (
