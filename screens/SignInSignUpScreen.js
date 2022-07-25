@@ -81,8 +81,15 @@ export default function SignInSignUpScreen({ navigation }) {
       setErrorText("Please enter your email");
     } else if (email.includes("@" && ".")) {
       
-      setErrorText("Check your email");
-      
+      firebase.auth().sendPasswordResetEmail(email)
+  .then(() => {
+    setErrorText("Check your email")
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ..
+  });
     }
      else 
       setErrorText("Please enter a valid email");
