@@ -31,7 +31,15 @@ export default function SignInSignUpScreen({ navigation }) {
   
 
   async function login() {	
-    try {	
+    if(email === '' && password === '') {
+      setErrorText("Please enter email and password");
+    }
+
+    else if (email.includes("@" && ".") && password ==='' ) {
+      setErrorText("Please enter your password")
+    }
+
+    else try {	
       Keyboard.dismiss();
       await auth.signInWithEmailAndPassword(email, password);	
       navigation.navigate("Logged In");	
@@ -42,8 +50,8 @@ export default function SignInSignUpScreen({ navigation }) {
   }
 
   async function signUp() {
-    if(email === '' && password === '') {
-      setErrorText("Please enter email and password");
+    if(email === '' && password === '' && confirmPassword === '') {
+      setErrorText("Please enter email , password & confirm password");
     }
     
     else if (password !== confirmPassword) {
