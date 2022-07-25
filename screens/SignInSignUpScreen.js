@@ -85,11 +85,7 @@ export default function SignInSignUpScreen({ navigation }) {
   .then(() => {
     setErrorText("Check your email")
   })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // ..
-  });
+  .catch((error) => setErrorText(error.message));
     }
      else 
       setErrorText("Please enter a valid email");
