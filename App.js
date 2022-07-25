@@ -36,14 +36,13 @@ function App() {
     <NavigationContainer>
       <StatusBar style={isDark ? "light" : "dark"}></StatusBar>
       <Stack.Navigator
-        headerMode="none"
         initialRouteName={token ? "Logged In" : "SignInSignUp"}
         screenOptions={{
           animationEnabled: false,
         }}
       >
-        <Stack.Screen component={SignInSignUpScreen} name="SignInSignUp" />
-        <Stack.Screen component={LoggedInStack} name="Logged In" />
+        <Stack.Screen component={SignInSignUpScreen} name="SignInSignUp" options={{headerShown:false}}/>
+        <Stack.Screen component={LoggedInStack} name="Logged In" options={{headerShown:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
