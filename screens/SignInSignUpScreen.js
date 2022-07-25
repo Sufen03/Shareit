@@ -25,6 +25,7 @@ export default function SignInSignUpScreen({ navigation }) {
 
   const [isLogIn, setIsLogIn] = useState(true)
   const [confirmPassword,setConfirmPassword] = useState('')
+  const [emailSent,SetEmailSent] = useState('')
 
   const [isForget, setIsForget] = useState(false)
 
@@ -74,11 +75,14 @@ export default function SignInSignUpScreen({ navigation }) {
     setErrorText("Please enter a valid email");
   }
 
+
   async function forget() {
-    if (email == "") {
+    if (email === "") {
       setErrorText("Please enter your email");
     } else if (email.includes("@" && ".")) {
+      
       setErrorText("Check your email");
+      
     }
      else 
       setErrorText("Please enter a valid email");
@@ -133,7 +137,7 @@ export default function SignInSignUpScreen({ navigation }) {
             style={styles.textInput}
             placeholder="Email:"
             placeholderTextColor="#003f5c"
-            secureTextEntry={true}
+            
             onChangeText={(email) => setEmail(email)}
           />
         </View>
@@ -174,16 +178,18 @@ export default function SignInSignUpScreen({ navigation }) {
           });
           setIsLogIn(!isLogIn);
           setIsForget(!isForget);
+          SetEmailSent(true);
           if (isForget) {
             setIsForget(false);
             setIsLogIn(true)
+            SetEmailSent(false);
           } else {
             setIsForget(true);
             setIsLogIn(false)
           }
           setErrorText("");
         }}>
-        <Text style={styles.switchText}>Forget Password?</Text>
+        <Text style={styles.switchText}> {emailSent ? "Back to Log In" : "Forget Password?"  }</Text>
       </TouchableOpacity>
     </View>
   );
