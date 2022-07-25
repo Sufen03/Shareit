@@ -14,7 +14,6 @@ import { useSelector } from "react-redux";
 import firebase from "../database/firebaseDB";
 
 export default function CreateScreen({ navigation, route }) {
-  const token = useSelector((state)=>state.auth.token);
   const isDark = useSelector((state) => state.accountPrefs.isDark);
   const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
   const [title, setTitle] = useState("");
@@ -22,7 +21,13 @@ export default function CreateScreen({ navigation, route }) {
 
   const image = route.params?.image
   
-  
+firebase.firestore().collection("posts").add({	
+  title: "Test this app",	
+  content: "Test",
+  image: "",
+  done: true,	
+  });  
+
   async function savePost() {
     const post = {
       title: title,
@@ -30,20 +35,19 @@ export default function CreateScreen({ navigation, route }) {
       image: image,
     };
 
-      
   }
 
   useEffect(() => {	
     if (route.params?.text) {	
-      const newNote = {	
+      const newPost = {	
         title: route.params.text,	
         done: false,	
         id: notes.length.toString(),	
       };	
-      setNotes([...notes, newNote]);	
+      setPosts([...post, newPost]);	
     }	
   }, [route.params?.text]);	
-  
+
   function savePost() {	
     navigation.navigate("Index");	
   }
