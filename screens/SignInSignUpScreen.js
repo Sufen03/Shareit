@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 const auth = firebase.auth();
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-import axios from 'axios';
+
 import { useDispatch } from 'react-redux';
 import { logInAction } from '../redux/ducks/blogAuth';
 
@@ -36,22 +36,33 @@ export default function SignInSignUpScreen({ navigation }) {
       navigation.navigate("Logged In");	
     } catch (error) {	
       console.log(error);	
+      setErrorText("Invalid email / password")
     }	
   }
 
   async function signUp() {
     if(email === '' && password === '') {
-      Alert.alert('Enter details to signup!')
-    } else {
-      ({
-        setLoading: true,
-      })
+      setErrorText("Please enter email and password");
+    }
+    
+    else if (password !== confirmPassword) {
+      setErrorText("Please key in the same password & confirm password")
+    }
+    
+    else if (password.length < 6) {
+      setErrorText("Please key at least 6 characters for password")
+    }
+
+    else if (email.includes("@" && "."))  {
       firebase
       .auth()
       .createUserWithEmailAndPassword(email,password)
-        navigation.navigate('Logged In')
-      .catch(error => ({ errorMessage: error.message }))      
+      .then((_) =>  navigation.navigate('Logged In'))
+      .catch(error => setErrorText(error.message))      
     }
+
+    else 
+    setErrorText("Please enter a valid email");
   }
 
   async function forget() {
