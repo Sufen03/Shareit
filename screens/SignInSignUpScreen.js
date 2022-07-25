@@ -32,6 +32,7 @@ export default function SignInSignUpScreen({ navigation }) {
 
   async function login() {	
     try {	
+      Keyboard.dismiss();
       await auth.signInWithEmailAndPassword(email, password);	
       navigation.navigate("Logged In");	
     } catch (error) {	
