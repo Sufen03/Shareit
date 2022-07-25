@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { LayoutAnimation, Platform, StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, UIManager, ActivityIndicator, Keyboard, Image } from 'react-native';
 import firebase from "../database/firebaseDB";
 import { useNavigation } from '@react-navigation/native';
-const auth = firebase.auth();
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
 
 import { useDispatch } from 'react-redux';
 import { logInAction } from '../redux/ducks/blogAuth';
 
+const auth = firebase.auth();
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -37,7 +37,7 @@ export default function SignInSignUpScreen({ navigation }) {
       navigation.navigate("Logged In");	
     } catch (error) {	
       console.log(error);	
-      setErrorText("Invalid email / password")
+      setErrorText(error.message)
     }	
   }
 
