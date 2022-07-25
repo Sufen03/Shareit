@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { LayoutAnimation, Platform, StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, UIManager, ActivityIndicator, Keyboard, Image } from 'react-native';
 import firebase from "../database/firebaseDB";
 import { useNavigation } from '@react-navigation/native';
-const auth = firebase.auth();
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
-import axios from 'axios';
+
 import { useDispatch } from 'react-redux';
 import { logInAction } from '../redux/ducks/blogAuth';
 
+const auth = firebase.auth();
 
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -31,27 +31,47 @@ export default function SignInSignUpScreen({ navigation }) {
   
 
   async function login() {	
-    try {	
+    if(email === '' && password === '') {
+      setErrorText("Please enter email and password");
+    }
+
+    else if (email.includes("@" && ".") && password ==='' ) {
+      setErrorText("Please enter your password")
+    }
+
+    else try {	
+      Keyboard.dismiss();
       await auth.signInWithEmailAndPassword(email, password);	
       navigation.navigate("Logged In");	
     } catch (error) {	
       console.log(error);	
+      setErrorText(error.message)
     }	
   }
 
   async function signUp() {
-    if(email === '' && password === '') {
-      Alert.alert('Enter details to signup!')
-    } else {
-      ({
-        setLoading: true,
-      })
+    if(email === '' && password === '' && confirmPassword === '') {
+      setErrorText("Please enter email , password & confirm password");
+    }
+    
+    else if (password !== confirmPassword) {
+      setErrorText("Please key in the same password & confirm password")
+    }
+    
+    else if (password.length < 6) {
+      setErrorText("Please key at least 6 characters for password")
+    }
+
+    else if (email.includes("@" && "."))  {
       firebase
       .auth()
       .createUserWithEmailAndPassword(email,password)
-        navigation.navigate('Logged In')
-      .catch(error => ({ errorMessage: error.message }))      
+      .then((_) =>  navigation.navigate('Logged In'))
+      .catch(error => setErrorText(error.message))      
     }
+
+    else 
+    setErrorText("Please enter a valid email");
   }
 
   async function forget() {
