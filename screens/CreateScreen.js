@@ -21,20 +21,22 @@ export default function CreateScreen({ navigation, route }) {
 
   const image = route.params?.image
   
-firebase.firestore().collection("posts").add({	
-  title: "Test this app",	
-  content: "Test",
-  image: "",
-  done: true,	
-  });  
+
 
   async function savePost() {
     const post = {
       title: title,
       content: content,
       image: image,
+      claimed: false,
     };
-
+    
+    try {
+      await firebase.firestore().collection("posts").add(post);  
+      navigation.navigate("Index");	
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   useEffect(() => {	
@@ -48,9 +50,6 @@ firebase.firestore().collection("posts").add({
     }	
   }, [route.params?.text]);	
 
-  function savePost() {	
-    navigation.navigate("Index");	
-  }
 
   return (
     <View style={styles.container}>
