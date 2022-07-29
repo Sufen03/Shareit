@@ -94,7 +94,7 @@ export default function IndexScreen({ navigation, route }) {
         data={posts}
         renderItem={renderItem}
         style={{ width: "100%" }}
-        keyExtractor={(item) => item.id}
+        key={(item) => item.id}
         refreshControl={<RefreshControl
           colors={["#9Bd35A", "#689F38"]}
           refreshing={refreshing}
