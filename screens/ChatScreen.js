@@ -8,8 +8,6 @@ import {
 
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
-import ChatRoomScreen from "./ChatRoomScreen";
-
 
 export default function ChatScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token);
@@ -30,12 +28,15 @@ export default function ChatScreen({ navigation, route }) {
 }
 
 const additionalStyles = StyleSheet.create({
-  chatButton: {
-    marginTop:100
-    
+  input: {
+    fontSize: 24,
+    borderWidth: 1,
+    borderColor: "black",
+    marginBottom: 15,
   },
-  chatTitle: {
-    color:"red",
-  }
-  
+  label: {
+    fontSize: 28,
+    marginBottom: 10,
+    marginLeft: 5,
+  },
 });
