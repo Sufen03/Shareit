@@ -4,7 +4,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import axios from "axios";
 import { API, API_POSTS } from "../constants/API";
 import { darkStyles, lightStyles } from "../styles/commonStyles";
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
+import firebase from "../database/firebaseDB";
 
 export default function IndexScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token)
@@ -23,36 +24,18 @@ export default function IndexScreen({ navigation, route }) {
     });
   });
 
-  useEffect(() => {
-    getPosts();
+  useEffect(() => {	
+    const unsubscribe = firebase	
+      .firestore()	
+      .collection("posts")	
+      .onSnapshot((collection) => {	
+        const updatedPost = collection.docs.map((doc) => doc.data());	
+        setPosts(updatedPost);	
+      });	
+    return () => unsubscribe();	
   }, []);
-
-  useEffect(() => {
-    
-    // Check for when we come back to this screen
-    const removeListener = navigation.addListener("focus", () => {
-      
-      getPosts();
-    });
-    getPosts();
-    return removeListener;
-  }, []);
-
-  async function getPosts() {
-    try {
-      const response = await axios.get(API + API_POSTS, {
-        headers: { Authorization: `JWT ${token}` },
-      })
-      // 
-      setPosts(response.data);
-      return "completed"
-    } catch (error) {
-      
-      /*if (error.response.data.error = "Invalid token") {
-        navigation.navigate("SignInSignUp");
-      }*/
-    }
-  }
+  
+  
 
   async function onRefresh() {
     setRefreshing(true);
@@ -111,7 +94,7 @@ export default function IndexScreen({ navigation, route }) {
         data={posts}
         renderItem={renderItem}
         style={{ width: "100%" }}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         refreshControl={<RefreshControl
           colors={["#9Bd35A", "#689F38"]}
           refreshing={refreshing}
