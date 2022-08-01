@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, FlatList, RefreshControl, Image} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import axios from "axios";
-import { API, API_POSTS } from "../constants/API";
 import { darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from 'react-redux';
 import firebase from "../database/firebaseDB";
@@ -42,13 +40,13 @@ export default function IndexScreen({ navigation, route }) {
     return () => unsubscribe();	
   }, []);
   
-  
-
-  function onRefresh() {
+  const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
-    const response = setPosts()
+    const newPosts = await updatedPost();
+    setPosts(newPosts);
+    console.log(newPosts)
     setRefreshing(false);
-  }
+  }, []);
 
   function addPost() {
     navigation.navigate("Add")
