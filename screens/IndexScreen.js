@@ -27,7 +27,7 @@ export default function IndexScreen({ navigation, route }) {
   });
 
   useEffect(() => {	
-    const unsubscribe = db.orderBy('created').onSnapshot((collection) => {
+    const unsubscribe = db.onSnapshot((collection) => {
       const updatedPost = collection.docs.map((doc) => {
         const postObject ={
           ...doc.data(),
