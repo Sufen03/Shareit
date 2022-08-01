@@ -14,6 +14,8 @@ export default function IndexScreen({ navigation, route }) {
   const isDark = useSelector((state) => state.accountPrefs.isDark);
   const styles = isDark ? darkStyles : lightStyles;
 
+  const db = firebase.firestore().collection("posts");
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -25,21 +27,26 @@ export default function IndexScreen({ navigation, route }) {
   });
 
   useEffect(() => {	
-    const unsubscribe = firebase	
-      .firestore()	
-      .collection("posts")	
-      .onSnapshot((collection) => {	
-        const updatedPost = collection.docs.map((doc) => doc.data());	
-        setPosts(updatedPost);	
-      });	
+    const unsubscribe = db.onSnapshot((collection) => {
+      const updatedPost = collection.docs.map((doc) => {
+        const postObject ={
+          ...doc.data(),
+          id: doc.id,
+      };
+      console.log(postObject);
+      return postObject;
+      })
+      setPosts(updatedPost);
+    })
+      
     return () => unsubscribe();	
   }, []);
   
   
 
-  async function onRefresh() {
+  function onRefresh() {
     setRefreshing(true);
-    const response = await getPosts()
+    const response = setPosts()
     setRefreshing(false);
   }
 
@@ -47,17 +54,10 @@ export default function IndexScreen({ navigation, route }) {
     navigation.navigate("Add")
   }
 
-  async function deletePost(id) {
-    
-    try {
-      const response = await axios.delete(API + API_POSTS + `/${id}`, {
-        headers: { Authorization: `JWT ${token}` },
-      })
-      
-      setPosts(posts.filter((item) => item.id !== id));
-    } catch (error) {
-      
-    }
+  function deletePost(id) {	
+    console.log("Deleting " + id);	
+    // To delete that item, we filter out the item we don't want	
+    db.doc(id).delete();
   }
 
   // The function to render each row in our FlatList
