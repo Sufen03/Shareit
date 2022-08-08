@@ -8,7 +8,6 @@ import firebase from "../database/firebaseDB";
 export default function IndexScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token)
   const [posts, setPosts] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
   const isDark = useSelector((state) => state.accountPrefs.isDark);
   const styles = isDark ? darkStyles : lightStyles;
 
@@ -40,22 +39,10 @@ export default function IndexScreen({ navigation, route }) {
     return () => unsubscribe();	
   }, []);
   
-  const onRefresh = React.useCallback(async () => {
-    setRefreshing(true);
-    const newPosts = await updatedPost();
-    setPosts(newPosts);
-    console.log(newPosts)
-    setRefreshing(false);
-  }, []);
+  
 
   function addPost() {
     navigation.navigate("Add")
-  }
-
-  function deletePost(id) {	
-    console.log("Deleting " + id);	
-    // To delete that item, we filter out the item we don't want	
-    db.doc(id).delete();
   }
 
   // The function to render each row in our FlatList
@@ -75,9 +62,7 @@ export default function IndexScreen({ navigation, route }) {
           <Text style={styles.text}>{item.title}</Text>
           <View style={{flexDirection: 'row'}}>
           <Image style={{width: 100, height: 100}} source={{uri: item.image}} />
-          <TouchableOpacity onPress={() => deletePost(item.id)} style={{marginLeft: "auto", marginTop: 60}}>
-            <FontAwesome name="trash" size={40} color="#a80000" />
-          </TouchableOpacity>
+          
           </View>
         </View>
 
@@ -88,15 +73,10 @@ export default function IndexScreen({ navigation, route }) {
   return (
     <View style={styles.container}>
       <FlatList
-        
         data={posts}
         renderItem={renderItem}
         style={{ width: "100%" }}
         key={(item) => item.id}
-        refreshControl={<RefreshControl
-          colors={["#9Bd35A", "#689F38"]}
-          refreshing={refreshing}
-          onRefresh={onRefresh}/>}
       />
     </View>
   );
