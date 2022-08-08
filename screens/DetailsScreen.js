@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { commonStyles, lightStyles, darkStyles } from "../styles/commonStyles";
-import axios from "axios";
-import { API, API_POSTS } from "../constants/API";
+import firebase from "../database/firebaseDB";
 import { useSelector } from "react-redux";
+
 
 export default function ShowScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token);
   const [post, setPost] = useState({title: "", content: "", id: ''});
   const isDark = useSelector((state) => state.accountPrefs.isDark);
   const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
+
+  const db = firebase.firestore();
 
   useEffect(() => {
     navigation.setOptions({
@@ -22,30 +24,25 @@ export default function ShowScreen({ navigation, route }) {
     });
   });
 
-  useEffect(() => {
-    getPost();
-  }, [])
+  
 
-  async function getPost() {
-    const id = route.params.id
-    
-    try {
-      const response = await axios.get(API + API_POSTS + "/" + id, {
-        headers: { Authorization: `JWT ${token}` },
-      })
- 
-      setPost(response.data);
-    } catch (error) {
-      
-      if (error.response.data.error = "Invalid token") {
-        navigation.navigate("SignInSignUp");
-      }
-    }
-  }
+  const getPostById = async (id) => {
+    const dbRef = db.collection("posts").doc(id);
+    const doc = await dbRef.get();
+    const post = doc.data();
+    setPost({
+      ...post,
+      id: doc.id,
+    });
+  };
+
+  useEffect(() => {
+    getPostById(route.params.id);
+  }, [])
 
   function editPost() {
     navigation.navigate("Edit", { post: post })
-    getPost();
+    getPostById();
   }
   
   return (
