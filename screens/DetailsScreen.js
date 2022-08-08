@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, ScrollView } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { commonStyles, lightStyles, darkStyles } from "../styles/commonStyles";
 import firebase from "../database/firebaseDB";
@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 export default function ShowScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token);
   const [post, setPost] = useState({title: "", content: "", id: ''});
+  const [claimed, setClaimed] = useState(false)
   const isDark = useSelector((state) => state.accountPrefs.isDark);
   const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
 
@@ -33,6 +34,7 @@ export default function ShowScreen({ navigation, route }) {
     setPost({
       ...post,
       id: doc.id,
+      claimed
     });
   };
 
@@ -44,12 +46,35 @@ export default function ShowScreen({ navigation, route }) {
     navigation.navigate("Edit", { post: post })
     getPostById();
   }
+
+  function toggleClaimed() {
+    setClaimed(!claimed)
+  }
+
+  function deletePost(id) {	
+    console.log("Deleting " + id);	
+    // To delete that item, we filter out the item we don't want	
+    db.doc(id).delete();
+  }
+  
   
   return (
-    <View style={styles.container}>
-      <Text style={[styles.title, styles.text, { margin: 40 }]}>{post.title}</Text>
-      <Image style={{resizeMode : 'cover', marginLeft: 22 ,width: "90%", height: 250}} source={{uri: post.image}}/>
-      <Text style={[styles.content, styles.text, { margin: 20 }]}>{post.content}</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
+        <Text style={[styles.title, styles.text, { margin: 40 }]}>{post.title}</Text>
+        <TouchableOpacity onPress={() => deletePost(id)} style={{ marginTop:10, marginRight: 10}}>
+          <FontAwesome name="trash" size={40} color="#a80000" />
+        </TouchableOpacity>
+        </View>
+        <Image style={{resizeMode : 'cover', marginLeft: 22 ,width: "90%", height: 250}} source={{uri: post.image}}/>
+        <Text style={[styles.content, styles.text, { margin: 20 }]}>{post.content}</Text>
+      <View>
+        <TouchableOpacity onPress={() => toggleClaimed()} style={{ marginTop: 60}}>
+          <Text style={{marginHorizontal: '36%',fontSize: 28}}>
+            {claimed ? 'Claimed' : 'Available'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
