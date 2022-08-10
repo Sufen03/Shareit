@@ -50,21 +50,11 @@ export default function ShowScreen({ navigation, route }) {
   function toggleClaimed() {
     setClaimed(!claimed)
   }
-
-  function deletePost(id) {	
-    console.log("Deleting " + id);	
-    // To delete that item, we filter out the item we don't want	
-    db.doc(id).delete();
-  }
-  
   
   return (
     <ScrollView style={styles.container}>
       <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
         <Text style={[styles.title, styles.text, { margin: 40 }]}>{post.title}</Text>
-        <TouchableOpacity onPress={() => deletePost(id)} style={{ marginTop:10, marginRight: 10}}>
-          <FontAwesome name="trash" size={40} color="#a80000" />
-        </TouchableOpacity>
         </View>
         <Image style={{resizeMode : 'cover', marginLeft: 22 ,width: "90%", height: 250}} source={{uri: post.image}}/>
         <Text style={[styles.content, styles.text, { margin: 20 }]}>{post.content}</Text>
