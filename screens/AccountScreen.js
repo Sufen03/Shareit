@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { FontAwesome } from "@expo/vector-icons";
 import {
   ActivityIndicator,
   Switch,
@@ -67,6 +68,17 @@ export default function AccountScreen({ navigation }) {
     }
   }*/
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity style={[styles.button]} onPress={signOut}>
+       <FontAwesome name="sign-out" size={24} color="black" />
+      </TouchableOpacity>
+      ),
+    });
+  });
+  
+
   function signOut() {
     dispatch(logOutAction());
     navigation.navigate("SignInSignUp");
@@ -125,9 +137,7 @@ export default function AccountScreen({ navigation }) {
         onChange={switchMode} 
         />
       </View>
-      <TouchableOpacity style={[styles.button]} onPress={signOut}>
-        <Text style={styles.buttonText}>Sign Out</Text>
-      </TouchableOpacity>
+      
       <TouchableOpacity style={[styles.button]} onPress={GoListing}>
         <Text style={styles.buttonText}>My Listings</Text>
       </TouchableOpacity>
