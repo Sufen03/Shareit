@@ -8,6 +8,7 @@ import { darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 import CameraScreen from '../screens/CameraScreen';
 
+
 const InnerStack = createStackNavigator();
 
 export default function BlogStack() {
@@ -27,6 +28,7 @@ export default function BlogStack() {
       <InnerStack.Screen name="Details" component={ShowScreen} options={headerOptions} />
       <InnerStack.Screen name="Edit" component={EditScreen} options={{ title: "Edit Post", ...headerOptions }} />
       <InnerStack.Screen name="blogCamera" component={CameraScreen} options={{ headerOptions }} />
+      
     </InnerStack.Navigator>
   )
 }
