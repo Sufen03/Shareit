@@ -13,6 +13,8 @@ import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 import firebase from "../database/firebaseDB";
 
+const auth = firebase.auth();
+
 export default function CreateScreen({ navigation, route }) {
   const isDark = useSelector((state) => state.accountPrefs.isDark);
   const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
@@ -29,6 +31,8 @@ export default function CreateScreen({ navigation, route }) {
       content: content,
       image: image,
       claimed: false,
+      id: auth.currentUser?.uid, 
+      name: auth.currentUser?.email
     };
     
     try {

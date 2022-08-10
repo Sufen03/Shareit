@@ -3,7 +3,8 @@ import { Text, View, TouchableOpacity, FlatList, RefreshControl, Image} from "re
 import { FontAwesome } from "@expo/vector-icons";
 import { darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from 'react-redux';
-import firebase from "../database/firebaseDB";
+import  firebase from "../database/firebaseDB";
+
 
 export default function ListingScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token)
@@ -12,6 +13,7 @@ export default function ListingScreen({ navigation, route }) {
   const styles = isDark ? darkStyles : lightStyles;
 
   const db = firebase.firestore().collection("posts");
+   const auth = firebase.auth();
 
   useEffect(() => {
     navigation.setOptions({
@@ -24,7 +26,8 @@ export default function ListingScreen({ navigation, route }) {
   });
 
   useEffect(() => {	
-    const unsubscribe = db.onSnapshot((collection) => {
+    const user = auth.currentUser;
+    const unsubscribe = db.where("name", "==", user.email).onSnapshot((collection) => {
       const updatedPost = collection.docs.map((doc) => {
         const postObject ={
           ...doc.data(),
