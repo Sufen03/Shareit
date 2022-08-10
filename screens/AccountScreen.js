@@ -72,6 +72,10 @@ export default function AccountScreen({ navigation }) {
     navigation.navigate("SignInSignUp");
   }
 
+  function GoListing() {
+    navigation.navigate("Listing");
+  }
+
   function switchMode() {
     
     dispatch(changeModeAction());
@@ -93,7 +97,7 @@ export default function AccountScreen({ navigation }) {
     <View style={[styles.container, { alignItems: "center" }]}>
       <Text style={[styles.title, styles.text, { marginTop: 30, fontSize: 42 }]}>
         {" "}
-        Hello Zachary !
+        Hello!
       </Text>
       <TouchableWithoutFeedback onPress={changePicSize}>
       <Animated.Image
@@ -123,6 +127,9 @@ export default function AccountScreen({ navigation }) {
       </View>
       <TouchableOpacity style={[styles.button]} onPress={signOut}>
         <Text style={styles.buttonText}>Sign Out</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={[styles.button]} onPress={GoListing}>
+        <Text style={styles.buttonText}>My Listings</Text>
       </TouchableOpacity>
     </View>
   );

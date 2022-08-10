@@ -6,6 +6,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
 import { Image } from 'react-native';
 import ChatStack from './ChatStack';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,10 +23,10 @@ export default function LoggedInStack() {
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === "Blog") {
+          if (route.name === "ShareIts") {
             iconName = "home";
-          } else if (route.name === "Settings") {
-            iconName = "cog";
+          } else if (route.name === "Profile") {
+            iconName = "user";
           } else if (route.name === "Chats") {
             iconName = "comments";
           }
@@ -34,9 +35,9 @@ export default function LoggedInStack() {
         },
       })}
     >
-      <Tab.Screen name="Blog" component={BlogStack} />
+      <Tab.Screen name="ShareIts" component={BlogStack} />
       <Tab.Screen name="Chats" component={ChatStack} />
-      <Tab.Screen name="Settings" component={AccountStack} />
+      <Tab.Screen name="Profile" component={AccountStack} />
     </Tab.Navigator>
   );
 }
