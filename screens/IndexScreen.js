@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, FlatList, RefreshControl, Image} from "react-native";
+import { Text, View, TouchableOpacity, FlatList, Image,} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from 'react-redux';
@@ -48,8 +48,9 @@ export default function IndexScreen({ navigation, route }) {
   // The function to render each row in our FlatList
   function renderItem({ item }) {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("Details", {id: item.id})}>
-        <View
+      <View style={{flexDirection: 'row'}}> 
+        <TouchableOpacity onPress={() => navigation.navigate("Details", {id: item.id})}>
+          <View
           style={{
             padding: 10,
             paddingTop: 20,
@@ -58,15 +59,12 @@ export default function IndexScreen({ navigation, route }) {
             borderBottomWidth: 1,
             flexDirection: "column",
             justifyContent: "space-between",
-          }}>
-          <Text style={styles.text}>{item.title}</Text>
-          <View style={{flexDirection: 'row'}}>
-          <Image style={{width: 100, height: 100}} source={{uri: item.image}} />
-          
+            }}>
+            <Image style={{width: 100, height: 100}} source={{uri: item.image}} />
+            <Text style={styles.text}>{item.content}</Text>
           </View>
-        </View>
-
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     );
   }
 

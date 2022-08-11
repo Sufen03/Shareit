@@ -71,9 +71,11 @@ export default function AccountScreen({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity style={[styles.button]} onPress={signOut}>
-       <FontAwesome name="sign-out" size={24} color="black" />
-      </TouchableOpacity>
+        <View style={{marginRight:10}}>
+          <TouchableOpacity style={[styles.button]} onPress={signOut}>
+            <FontAwesome name="sign-out" size={30} color="black" />
+          </TouchableOpacity>
+        </View>
       ),
     });
   });

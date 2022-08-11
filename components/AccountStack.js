@@ -35,7 +35,7 @@ export default function AccountStack() {
         headerTintColor: styles.headerTint
       }}/>
       <Stack.Screen component={ListingScreen} name="Listing" options={{
-        title: "Listing Screen",
+        title: "My Listings",
         headerStyle: styles.header,
         headerTitleStyle: styles.headerTitle,
         headerTintColor: styles.headerTint

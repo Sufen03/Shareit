@@ -19,7 +19,7 @@ export default function ChatStack() {
 
   return (
     <InnerStack.Navigator>
-      <InnerStack.Screen name="ChatScreen" component={ChatScreen} options={{ title: "ChatScreen", ...headerOptions, headerLeft: null }} />
+      <InnerStack.Screen name="ChatScreen" component={ChatScreen} options={{ title: "Chat Forum", ...headerOptions, headerLeft: null }} />
       <InnerStack.Screen name="ChatRoomScreen" component={ChatRoomScreen} options={{ title: "ChatRoom", ...headerOptions }} />
       
     </InnerStack.Navigator>
