@@ -80,6 +80,9 @@ export default function ListingScreen({ navigation, route }) {
         renderItem={renderItem}
         style={{ width: "100%" }}
         key={(item) => item.id}
+        keyExtractor={(item) => item.toString}
+        numColumns={3}
+        justifyContent={{}}
       />
     </View>
   );
