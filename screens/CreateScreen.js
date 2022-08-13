@@ -7,8 +7,7 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-import axios from "axios";
-import { API, API_CREATE } from "../constants/API";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 import firebase from "../database/firebaseDB";
@@ -31,6 +30,7 @@ export default function CreateScreen({ navigation, route }) {
       content: content,
       image: image,
       claimed: false,
+      created: firebase.firestore.Timestamp.now(),
       id: auth.currentUser?.uid, 
       name: auth.currentUser?.email
     };
@@ -47,8 +47,9 @@ export default function CreateScreen({ navigation, route }) {
     if (route.params?.text) {	
       const newPost = {	
         title: route.params.text,	
-        done: false,	
-        id: notes.length.toString(),	
+        claimed: false,	
+        id: notes.length.toString(),
+        created: firebase.firestore.Timestamp.now(),
       };	
       setPosts([...post, newPost]);	
     }	
@@ -56,6 +57,7 @@ export default function CreateScreen({ navigation, route }) {
 
 
   return (
+    <KeyboardAwareScrollView>
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
       <Image style={{width: 390, height: 250, marginBottom: 15}} source={{uri: image}}/>
@@ -90,6 +92,7 @@ export default function CreateScreen({ navigation, route }) {
         </TouchableOpacity>
       </View>
     </View>
+    </KeyboardAwareScrollView>
   );
 }
 

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { API, API_CREATE, API_POSTS, PUT } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { updatePicAction } from "../redux/ducks/accountPref";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import firebase from "../database/firebaseDB";
 
 export default function EditScreen({ navigation, route }) {
   const [post, setPost] = useState('');
@@ -32,7 +34,7 @@ export default function EditScreen({ navigation, route }) {
   }, []);
 
   async function getPost() {
-    
+
     try {
       const response = await axios.get(API + API_POSTS + "/" + id, {
         headers: { Authorization: `JWT ${token}` },
@@ -43,7 +45,7 @@ export default function EditScreen({ navigation, route }) {
       
       if ((error.response.data.error = "Invalid token")) {
         navigation.navigate("SignInSignUp");
-      }
+    }
     }
   }
 
@@ -52,6 +54,7 @@ export default function EditScreen({ navigation, route }) {
   }
 
   return (
+    <KeyboardAwareScrollView>
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
         <Image style={{resizeMode : 'cover', height: 250, width: '90%', marginLeft: 22, marginBottom: 20}} source={{uri: picture ?? image }}/>
@@ -83,6 +86,7 @@ export default function EditScreen({ navigation, route }) {
         </TouchableOpacity>
       </View>
     </View>
+    </KeyboardAwareScrollView>
   );
 
   async function savePost() {

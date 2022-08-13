@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LayoutAnimation, Platform, StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, UIManager, ActivityIndicator, Keyboard, Image } from 'react-native';
 import firebase from "../database/firebaseDB";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
@@ -93,13 +94,18 @@ export default function SignInSignUpScreen({ navigation }) {
 
   const buttonText = isLogIn ? "Log In" : isForget ? "Send" : "Sign Up";
   return (
+    <KeyboardAwareScrollView 
+      contentContainerStyle={styles.container}
+      scrollEnabled={false}
+      automaticallyAdjustContentInsets={false}>
     <View style={styles.container}>
-      <Image source={require('../assets/titlelogo.png')} style={{ width: 250, height: 250, borderRadius: 200 }} />
+      <Image source={require('../assets/titlelogo.png')} style={{ width: 300, height: 300, borderRadius: 200 }} />
       
-
+    
       {isForget ? <View /> : <><Text style={styles.title}>
         {isLogIn ? "Log In" : (isForget ? "Forget" : "Sign Up")}
       </Text>
+      
       <View style={styles.inputView}>
         <TextInput
           style={styles.textInput}
@@ -148,6 +154,7 @@ export default function SignInSignUpScreen({ navigation }) {
         }
 
       <View/>
+      
       <View>
         <View style={{flexDirection: "row"}}>
           <TouchableOpacity style={styles.button} onPress={ isLogIn ? login : isForget ? forget : signUp}>
@@ -195,6 +202,8 @@ export default function SignInSignUpScreen({ navigation }) {
         <Text style={styles.switchText}> {emailSent ? "Back to Log In" : "Forget Password?"  }</Text>
       </TouchableOpacity>
     </View>
+    </KeyboardAwareScrollView>
+    
   );
 }
 
