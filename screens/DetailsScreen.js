@@ -54,10 +54,10 @@ export default function ShowScreen({ navigation, route }) {
   return (
     <ScrollView style={styles.container}>
       <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
-        <Text style={[styles.title, styles.text, { margin: 40 }]}>{post.title}</Text>
+        <Text style={[styles.title, styles.text, { margin: 40 }]}>{post.content}</Text>
         </View>
         <Image style={{resizeMode : 'cover', marginLeft: 22 ,width: "90%", height: 250}} source={{uri: post.image}}/>
-        <Text style={[styles.content, styles.text, { margin: 20 }]}>{post.content}</Text>
+        <Text style={[styles.content, styles.text, { margin: 20 }]}>Category: {post.value}</Text>
       <View>
         <TouchableOpacity onPress={() => toggleClaimed()} style={{ marginTop: 60}}>
           <Text style={{marginHorizontal: '36%',fontSize: 28}}>
