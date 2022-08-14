@@ -13,12 +13,13 @@ export const commonStyles = {
   },
   title: {
     fontWeight: "bold",
-    fontSize: 30, 
+    fontSize: 50, 
     textAlign: 'center',
   },
   content: {
     fontWeight: '400',
     fontSize: 24,
+    textAlign: 'center',
   },
 }
 
