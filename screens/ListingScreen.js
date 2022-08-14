@@ -51,7 +51,7 @@ export default function ListingScreen({ navigation, route }) {
   // The function to render each row in our FlatList
   function renderItem({ item }) {
     return (
-      <TouchableOpacity onPress={() => navigation.navigate("Details", {id: item.id})}>
+      <TouchableOpacity onPress={() => navigation.navigate("UserListingDetail", {id: item.id})}>
         <View
           style={{
             padding: 10,

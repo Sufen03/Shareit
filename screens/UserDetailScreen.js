@@ -6,7 +6,7 @@ import firebase from "../database/firebaseDB";
 import { useSelector } from "react-redux";
 
 
-export default function ShowScreen({ navigation, route }) {
+export default function UserDetailScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token);
   const [post, setPost] = useState({title: "", content: "", id: ''});
   const [claimed, setClaimed] = useState(false)
@@ -15,7 +15,15 @@ export default function ShowScreen({ navigation, route }) {
 
   const db = firebase.firestore();
 
-
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity onPress={editPost} style={{marginRight: 10}}>
+          <FontAwesome name="pencil-square-o" size={30} color={styles.headerTint} />
+        </TouchableOpacity>
+      ),
+    });
+  });
 
   
 
@@ -34,7 +42,10 @@ export default function ShowScreen({ navigation, route }) {
     getPostById(route.params.id);
   }, [])
 
-  
+  function editPost() {
+    navigation.navigate("Edit", { post: post })
+    getPostById();
+  }
 
   function toggleClaimed() {
     setClaimed(!claimed)

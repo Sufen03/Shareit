@@ -6,6 +6,8 @@ import { darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 import ChatScreen from '../screens/ChatScreen';
 import ListingScreen from '../screens/ListingScreen';
+import UserDetailScreen from '../screens/UserDetailScreen';
+import EditScreen from '../screens/EditScreen';
 
 const Stack = createStackNavigator();
 
@@ -40,7 +42,20 @@ export default function AccountStack() {
         headerTitleStyle: styles.headerTitle,
         headerTintColor: styles.headerTint
       }}/>
+      <Stack.Screen component={UserDetailScreen} name="UserListingDetail" options={{
+        title: "Listing Detail",
+        headerStyle: styles.header,
+        headerTitleStyle: styles.headerTitle,
+        headerTintColor: styles.headerTint
+      }}/>
+      <Stack.Screen component={EditScreen} name="Edit" options={{
+        title: "Edit Post",
+        headerStyle: styles.header,
+        headerTitleStyle: styles.headerTitle,
+        headerTintColor: styles.headerTint
+      }}/>
       
+
   </Stack.Navigator>
   )
 }
