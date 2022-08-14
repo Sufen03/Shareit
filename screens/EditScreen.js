@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { StyleSheet, Text, View, TextInput, TextEdit, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View,ScrollView, TextInput, TextEdit, TouchableOpacity, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { API, API_CREATE, API_POSTS, PUT } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
@@ -52,7 +52,7 @@ export default function EditScreen({ navigation, route }) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView keyboardShouldPersistTaps='handled' style={styles.container}>
       <View style={{ margin: 20 }}>
         <Image style={{resizeMode : 'cover', height: 250, width: '90%', marginLeft: 22, marginBottom: 20}} source={{uri: picture ?? image }}/>
         <Text style={[additionalStyles.label, styles.text]}>Edit Title:</Text>
@@ -82,7 +82,7 @@ export default function EditScreen({ navigation, route }) {
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 
   async function savePost() {
