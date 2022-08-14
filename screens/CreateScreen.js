@@ -12,6 +12,8 @@ import { API, API_CREATE } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 import firebase from "../database/firebaseDB";
+import DropDownPicker from 'react-native-dropdown-picker';
+
 
 const auth = firebase.auth();
 
@@ -22,12 +24,22 @@ export default function CreateScreen({ navigation, route }) {
   const [content, setContent] = useState("");
 
   const image = route.params?.image
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Food', value: 'Food'},
+    {label: 'Electronics', value: 'Electronics'},
+    {label: 'Clothing', value: 'Clothing'},
+    {label: 'Personal Care', value: 'Personal Care'},
+    {label: 'Furniture', value: 'Furniture'},
+  ]);
   
 
 
   async function savePost() {
     const post = {
-      title: title,
+      value: value,
       content: content,
       image: image,
       claimed: false,
@@ -59,12 +71,18 @@ export default function CreateScreen({ navigation, route }) {
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
       <Image style={{width: 390, height: 250, marginBottom: 15}} source={{uri: image}}/>
-        <Text style={[additionalStyles.label, styles.text]}>Enter Title:</Text>
-        <TextInput
-          style={additionalStyles.input}
-          value={title}
-          onChangeText={(text) => setTitle(text)}
-        />
+
+      <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+     
+    />
+
+        
         <Text style={[additionalStyles.label, styles.text]}>
           Enter Content:
         </Text>
