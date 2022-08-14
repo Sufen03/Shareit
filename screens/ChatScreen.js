@@ -28,17 +28,10 @@ export default function ChatScreen() {
 
    
 
-    navigation.setOptions({
-      headerRight: () => (
-        <TouchableOpacity onPress={logout}>
-          <MaterialCommunityIcons name="logout" size={30} color="grey" />
-        </TouchableOpacity>
-      ),
-    });
-    return unsubscribe;
-  }, []);
+    
+    
 
-  const logout = () => auth.signOut();
+    })
 
   function sendMessages(newMessages) {
     console.log(newMessages);
