@@ -5,7 +5,8 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Image
+  Image,
+  ScrollView
 } from "react-native";
 import axios from "axios";
 import { API, API_CREATE } from "../constants/API";
@@ -68,7 +69,7 @@ export default function CreateScreen({ navigation, route }) {
 
 
   return (
-    <View style={styles.container}>
+    <ScrollView keyboardShouldPersistTaps='handled' style={styles.container}>
       <View style={{ margin: 20 }}>
       <Image style={{width: 390, height: 250, marginBottom: 15}} source={{uri: image}}/>
 
@@ -107,7 +108,7 @@ export default function CreateScreen({ navigation, route }) {
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
