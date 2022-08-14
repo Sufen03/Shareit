@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import ChatScreen from '../screens/ChatScreen';
-import ChatRoomScreen from '../screens/ChatRoomScreen';
 import { darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 
@@ -19,8 +19,8 @@ export default function ChatStack() {
 
   return (
     <InnerStack.Navigator>
-      <InnerStack.Screen name="ChatScreen" component={ChatScreen} options={{ title: "Chat Forum", ...headerOptions, headerLeft: null }} />
-      <InnerStack.Screen name="ChatRoomScreen" component={ChatRoomScreen} options={{ title: "ChatRoom", ...headerOptions }} />
+     
+      <InnerStack.Screen name="ChatScreen" component={ChatScreen} options={{ title: "Chat Forum", ...headerOptions }} />
       
     </InnerStack.Navigator>
   )
