@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, FlatList, Image, SafeAreaView} from "reac
 import { FontAwesome } from "@expo/vector-icons";
 import { darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from 'react-redux';
+import DropDownPicker from 'react-native-dropdown-picker';
 import firebase from "../database/firebaseDB";
 
 export default function IndexScreen({ navigation, route }) {
@@ -45,10 +46,24 @@ export default function IndexScreen({ navigation, route }) {
     navigation.navigate("Add")
   }
 
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(null);
+    const [items, setItems] = useState([
+      {label: 'Home Appliances', value: 'Home Appliances'},
+      {label: 'Food', value: 'Food'},
+      {label: 'Electronics', value: 'Electronics'},
+      {label: 'Clothing', value: 'Clothing'},
+      {label: 'Personal Care', value: 'Personal Care'},
+      {label: 'Furniture', value: 'Furniture'},
+      {label: 'MISC', value: 'MISC'},
+  ]);
+  
   // The function to render each row in our FlatList
   function renderItem({ item }) {
+    
     return (
       <SafeAreaView style={{flexDirection: 'row', justifyContent: 'center'}}> 
+      
         <TouchableOpacity onPress={() => navigation.navigate("Details", {id: item.id})}>
           <View
           style={{
@@ -64,12 +79,22 @@ export default function IndexScreen({ navigation, route }) {
             <Text style={styles.text}>{item.content}</Text>
           </View>
         </TouchableOpacity>
+      
       </SafeAreaView>
     );
   }
 
   return (
     <SafeAreaView style={styles.container}>
+      <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+     
+    />
       <FlatList
         data={posts}
         renderItem={renderItem}

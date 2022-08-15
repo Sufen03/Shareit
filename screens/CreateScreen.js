@@ -27,11 +27,13 @@ export default function CreateScreen({ navigation, route }) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
+    {label: 'Home Appliances', value: 'Home Appliances'},
     {label: 'Food', value: 'Food'},
     {label: 'Electronics', value: 'Electronics'},
     {label: 'Clothing', value: 'Clothing'},
     {label: 'Personal Care', value: 'Personal Care'},
     {label: 'Furniture', value: 'Furniture'},
+    {label: 'MISC', value: 'MISC'},
   ]);
   
 
