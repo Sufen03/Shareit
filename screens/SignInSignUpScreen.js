@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LayoutAnimation, Platform, StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, UIManager, ActivityIndicator, Keyboard, Image } from 'react-native';
 import firebase from "../database/firebaseDB";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import { useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 
@@ -97,7 +97,7 @@ export default function SignInSignUpScreen({ navigation }) {
 
   const buttonText = isLogIn ? "Log In" : isForget ? "Send" : "Sign Up";
   return (
-    <KeyboardAwareScrollView 
+    <ScrollView 
       contentContainerStyle={styles.container}
       scrollEnabled={false}
       automaticallyAdjustContentInsets={false}>
@@ -205,7 +205,7 @@ export default function SignInSignUpScreen({ navigation }) {
         <Text style={styles.switchText}> {emailSent ? "Back to Log In" : "Forget Password?"  }</Text>
       </TouchableOpacity>
     </View>
-    </KeyboardAwareScrollView>
+    </ScrollView>
     
   );
 }

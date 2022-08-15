@@ -8,7 +8,6 @@ import {
   Image,
   ScrollView
 } from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 import firebase from "../database/firebaseDB";
