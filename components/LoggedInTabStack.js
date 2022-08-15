@@ -15,7 +15,7 @@ export default function LoggedInStack() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarActiveTintColor: "tomato",
+        tabBarActiveTintColor: "cyan",
         tabBarInactiveTintColor: "gray",
         tabBarStyle: {
           backgroundColor: isDark ? "#181818" : "white",
@@ -30,7 +30,7 @@ export default function LoggedInStack() {
           } else if (route.name === "Chats") {
             iconName = "comments";
           }
-          // You can return any component that you like here!
+          
           return <FontAwesome name={iconName} size={size} color={color} />;
         },
       })}

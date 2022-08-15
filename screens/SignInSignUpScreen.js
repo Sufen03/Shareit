@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LayoutAnimation, Platform, StyleSheet, ScrollView, View, Text, TextInput, TouchableOpacity, UIManager, ActivityIndicator, Keyboard, Image } from 'react-native';
 import firebase from "../database/firebaseDB";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -23,14 +23,17 @@ export default function SignInSignUpScreen({ navigation }) {
   const [loading, setLoading] = useState(false)
   const [errorText, setErrorText] = useState('')
   const [forgetemail,setForgetEmail] = useState('')
-
+  const navigate = useNavigation()
   const [isLogIn, setIsLogIn] = useState(true)
   const [confirmPassword,setConfirmPassword] = useState('')
   const [emailSent,SetEmailSent] = useState('')
+  
 
   const [isForget, setIsForget] = useState(false)
 
   
+
+
 
   async function login() {	
     if(email === '' && password === '') {

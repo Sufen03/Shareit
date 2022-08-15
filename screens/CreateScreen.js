@@ -5,12 +5,15 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
-  Image
+  Image,
+  ScrollView
 } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from "react-redux";
 import firebase from "../database/firebaseDB";
+import DropDownPicker from 'react-native-dropdown-picker';
+
 
 const auth = firebase.auth();
 
@@ -21,12 +24,22 @@ export default function CreateScreen({ navigation, route }) {
   const [content, setContent] = useState("");
 
   const image = route.params?.image
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Food', value: 'Food'},
+    {label: 'Electronics', value: 'Electronics'},
+    {label: 'Clothing', value: 'Clothing'},
+    {label: 'Personal Care', value: 'Personal Care'},
+    {label: 'Furniture', value: 'Furniture'},
+  ]);
   
 
 
   async function savePost() {
     const post = {
-      title: title,
+      value: value,
       content: content,
       image: image,
       claimed: false,
@@ -57,16 +70,21 @@ export default function CreateScreen({ navigation, route }) {
 
 
   return (
-    <KeyboardAwareScrollView>
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
-      <Image style={{width: 390, height: 250, marginBottom: 15}} source={{uri: image}}/>
-        <Text style={[additionalStyles.label, styles.text]}>Enter Title:</Text>
-        <TextInput
-          style={additionalStyles.input}
-          value={title}
-          onChangeText={(text) => setTitle(text)}
-        />
+      <Image style={{width: 350, height: 250, marginBottom: 25, marginRight:10, borderRadius:10,}} source={{uri: image}}/>
+
+      <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+     
+    />
+
+        
         <Text style={[additionalStyles.label, styles.text]}>
           Enter Content:
         </Text>
@@ -92,20 +110,24 @@ export default function CreateScreen({ navigation, route }) {
         </TouchableOpacity>
       </View>
     </View>
-    </KeyboardAwareScrollView>
   );
 }
 
 const additionalStyles = StyleSheet.create({
   input: {
-    fontSize: 24,
+    fontSize: 20,
     borderWidth: 1,
     borderColor: "black",
     marginBottom: 15,
+    backgroundColor: 'white',
+    height:35,
+    borderRadius:8,
+    
   },
   label: {
     fontSize: 28,
     marginBottom: 10,
     marginLeft: 5,
+    marginTop:10,
   },
 });

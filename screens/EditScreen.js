@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { StyleSheet, Text, View, TextInput, TextEdit, TouchableOpacity, Image } from "react-native";
+import { StyleSheet, Text, View,ScrollView, TextInput, TextEdit, TouchableOpacity, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { API, API_CREATE, API_POSTS, PUT } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { updatePicAction } from "../redux/ducks/accountPref";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import firebase from "../database/firebaseDB";
 
 export default function EditScreen({ navigation, route }) {
   const [post, setPost] = useState('');
@@ -18,6 +16,17 @@ export default function EditScreen({ navigation, route }) {
   const [image, setImage] = useState('');
   const [id, setId] = useState('');
   const dispatch = useDispatch();
+
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'Food', value: 'Food'},
+    {label: 'Electronics', value: 'Electronics'},
+    {label: 'Clothing', value: 'Clothing'},
+    {label: 'Personal Care', value: 'Personal Care'},
+    {label: 'Furniture', value: 'Furniture'},
+  ]);
 
   const token = useSelector((state) => state.auth.token);
   const isDark = useSelector((state) => state.accountPrefs.isDark);
@@ -54,16 +63,18 @@ export default function EditScreen({ navigation, route }) {
   }
 
   return (
-    <KeyboardAwareScrollView>
     <View style={styles.container}>
       <View style={{ margin: 20 }}>
         <Image style={{resizeMode : 'cover', height: 250, width: '90%', marginLeft: 22, marginBottom: 20}} source={{uri: picture ?? image }}/>
-        <Text style={[additionalStyles.label, styles.text]}>Edit Title:</Text>
-        <TextInput
-          style={additionalStyles.input}
-          value={title}
-          onChangeText={(text) => setTitle(text)}
-        />
+        <DropDownPicker
+      open={open}
+      value={value}
+      items={items}
+      setOpen={setOpen}
+      setValue={setValue}
+      setItems={setItems}
+     
+    />
         <Text style={[additionalStyles.label, styles.text]}>
           Edit Details:
         </Text>
@@ -86,7 +97,6 @@ export default function EditScreen({ navigation, route }) {
         </TouchableOpacity>
       </View>
     </View>
-    </KeyboardAwareScrollView>
   );
 
   async function savePost() {
@@ -131,17 +141,21 @@ export default function EditScreen({ navigation, route }) {
 }
 
 //const styles = StyleSheet.create({});
-
 const additionalStyles = StyleSheet.create({
   input: {
-    fontSize: 24,
+    fontSize: 20,
     borderWidth: 1,
     borderColor: "black",
     marginBottom: 15,
+    backgroundColor: 'white',
+    height:35,
+    borderRadius:8,
+    
   },
   label: {
     fontSize: 28,
     marginBottom: 10,
     marginLeft: 5,
+    marginTop:10,
   },
 });

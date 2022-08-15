@@ -72,7 +72,7 @@ export default function AccountScreen({ navigation }) {
     navigation.setOptions({
       headerRight: () => (
         <View style={{marginRight:10}}>
-          <TouchableOpacity style={[styles.button]} onPress={signOut}>
+          <TouchableOpacity  onPress={signOut}>
             <FontAwesome name="sign-out" size={30} color="black" />
           </TouchableOpacity>
         </View>
