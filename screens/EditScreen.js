@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { API, API_CREATE, API_POSTS, PUT } from "../constants/API";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { updatePicAction } from "../redux/ducks/accountPref";
+import DropDownPicker from "react-native-dropdown-picker";
 
 export default function EditScreen({ navigation, route }) {
   const [post, setPost] = useState('');
@@ -43,7 +44,7 @@ export default function EditScreen({ navigation, route }) {
   }, []);
 
   async function getPost() {
-
+    
     try {
       const response = await axios.get(API + API_POSTS + "/" + id, {
         headers: { Authorization: `JWT ${token}` },
@@ -54,7 +55,7 @@ export default function EditScreen({ navigation, route }) {
       
       if ((error.response.data.error = "Invalid token")) {
         navigation.navigate("SignInSignUp");
-    }
+      }
     }
   }
 
@@ -63,7 +64,7 @@ export default function EditScreen({ navigation, route }) {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView keyboardShouldPersistTaps='handled' style={styles.container}>
       <View style={{ margin: 20 }}>
         <Image style={{resizeMode : 'cover', height: 250, width: '90%', marginLeft: 22, marginBottom: 20}} source={{uri: picture ?? image }}/>
         <DropDownPicker
@@ -96,7 +97,7 @@ export default function EditScreen({ navigation, route }) {
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   );
 
   async function savePost() {
