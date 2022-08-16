@@ -48,6 +48,12 @@ export default function ListingScreen({ navigation, route }) {
     navigation.navigate("Add")
   }
 
+  function deletePost(id) {	
+    console.log("Deleting " + id);	
+    // To delete that item, we filter out the item we don't want	
+    db.doc("id").delete();
+  }
+
   // The function to render each row in our FlatList
   function renderItem({ item }) {
     return (
@@ -65,7 +71,9 @@ export default function ListingScreen({ navigation, route }) {
           <Text style={styles.text}>{item.title}</Text>
           <View style={{flexDirection: 'row'}}>
           <Image style={{width: 100, height: 100}} source={{uri: item.image}} />
-          
+          <TouchableOpacity onPress={() => deletePost(id)} style={{ marginTop:70, marginLeft: '65%'}}>
+          <FontAwesome name="trash" size={40} color="#a80000" />
+          </TouchableOpacity>
           </View>
         </View>
 
