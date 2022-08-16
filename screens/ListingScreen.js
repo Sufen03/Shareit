@@ -69,11 +69,11 @@ export default function ListingScreen({ navigation, route }) {
             justifyContent: "space-between",
           }}>
           <Text style={styles.text}>{item.title}</Text>
-          <View style={{flexDirection: 'row'}}>
-          <Image style={{width: 100, height: 100}} source={{uri: item.image}} />
-          <TouchableOpacity onPress={() => deletePost(id)} style={{ marginTop:70, marginLeft: '65%'}}>
-          <FontAwesome name="trash" size={40} color="#a80000" />
-          </TouchableOpacity>
+          <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+            <Image style={{width: 100, height: 100, marginEnd:175}} source={{uri: item.image}} />
+            <TouchableOpacity onPress={() => deletePost(id)} style={{marginRight:0}}>
+            <FontAwesome name="trash" size={40} color="#a80000" />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -89,7 +89,7 @@ export default function ListingScreen({ navigation, route }) {
         style={{ width: "100%" }}
         key={(item) => item.id}
         keyExtractor={(item) => item.toString}
-        numColumns={3}
+        numColumns={1}
         justifyContent={{}}
       />
     </View>
