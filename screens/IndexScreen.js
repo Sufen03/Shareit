@@ -99,8 +99,7 @@ export default function IndexScreen({ navigation, route }) {
         data={posts}
         renderItem={renderItem}
         style={{ width: "100%" }}
-        key={(item) => item.id}
-        keyExtractor={(item) => item.toString}
+        key= {(items).toString()}
         numColumns= {3}
       />
     </SafeAreaView>

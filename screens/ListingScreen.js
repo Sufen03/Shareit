@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, FlatList, RefreshControl, Image} from "react-native";
+import { Text, View, TouchableOpacity, FlatList, RefreshControl, Image, Alert} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from 'react-redux';
@@ -48,12 +48,11 @@ export default function ListingScreen({ navigation, route }) {
     navigation.navigate("Add")
   }
 
-  function deletePost(id) {	
-    console.log("Deleting " + id);	
-    // To delete that item, we filter out the item we don't want	
-    db.doc("id").delete();
+  function deletePost(id) {()=>
+    db.doc(id).delete();
+    Alert.alert("Post deleted!");
+    navigation.navigate("Listing");
   }
-
   // The function to render each row in our FlatList
   function renderItem({ item }) {
     return (
@@ -71,7 +70,7 @@ export default function ListingScreen({ navigation, route }) {
           <Text style={styles.text}>{item.title}</Text>
           <View style={{flexDirection:'row', justifyContent:'space-around'}}>
             <Image style={{width: 100, height: 100, marginEnd:175}} source={{uri: item.image}} />
-            <TouchableOpacity onPress={() => deletePost(id)} style={{marginRight:0}}>
+            <TouchableOpacity onPress={() => deletePost(item.id)} style={{marginRight:0}}>
             <FontAwesome name="trash" size={40} color="#a80000" />
             </TouchableOpacity>
           </View>
@@ -88,7 +87,6 @@ export default function ListingScreen({ navigation, route }) {
         renderItem={renderItem}
         style={{ width: "100%" }}
         key={(item) => item.id}
-        keyExtractor={(item) => item.toString}
         numColumns={1}
         justifyContent={{}}
       />
