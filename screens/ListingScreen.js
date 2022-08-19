@@ -48,7 +48,7 @@ export default function ListingScreen({ navigation, route }) {
     navigation.navigate("Add")
   }
 
-  function deletePost(id) {()=>
+  function deletePost(id) {
     db.doc(id).delete();
     Alert.alert("Post deleted!");
     navigation.navigate("Listing");
