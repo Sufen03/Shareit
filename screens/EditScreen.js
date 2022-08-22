@@ -55,7 +55,7 @@ export default function EditScreen({ navigation, route }) {
     
     try {
       await firebase.firestore().collection("posts").doc(id).update(post);  
-      navigation.navigate("Listing");	
+      navigation.navigate("Index");	
     } catch (error) {
       console.log(error.message)
     }
