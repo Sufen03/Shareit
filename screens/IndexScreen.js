@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, FlatList, Image, SafeAreaView} from "reac
 import { FontAwesome } from "@expo/vector-icons";
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from 'react-redux';
+import DropDownPicker from 'react-native-dropdown-picker';
 import firebase from "../database/firebaseDB";
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -82,8 +83,21 @@ export default function IndexScreen({ navigation, route }) {
     navigation.navigate("Add")
   }
 
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(null);
+    const [items, setItems] = useState([
+      {label: 'Home Appliances', value: 'Home Appliances'},
+      {label: 'Food', value: 'Food'},
+      {label: 'Electronics', value: 'Electronics'},
+      {label: 'Clothing', value: 'Clothing'},
+      {label: 'Personal Care', value: 'Personal Care'},
+      {label: 'Furniture', value: 'Furniture'},
+      {label: 'MISC', value: 'MISC'},
+  ]);
+  
   // The function to render each row in our FlatList
   function renderItem({ item }) {
+    
     return (
       <SafeAreaView style={{flexDirection: 'row', justifyContent: 'center'}}> 
       
@@ -102,6 +116,7 @@ export default function IndexScreen({ navigation, route }) {
             <Text style={styles.text}>{item.content}</Text>
           </View>
         </TouchableOpacity>
+      
       </SafeAreaView>
     );
   }
@@ -110,6 +125,7 @@ export default function IndexScreen({ navigation, route }) {
 
     
     <SafeAreaView style={styles.container}>
+
        
 
     <TouchableOpacity onPress={food} style={{backgroundColor:"red", width:"15%",borderRadius:"4", textAlign:"center", marginLeft:165, marginTop:15, marginBottom:15}}>
@@ -128,12 +144,14 @@ export default function IndexScreen({ navigation, route }) {
       <Text style={{fontSize:"25", textAlign:"center"}}>Furniture</Text>
     </TouchableOpacity>
 
-   <FlatList
+  
+     
+      <FlatList
+
         data={posts}
         renderItem={renderItem}
         style={{ width: "100%" }}
-        key={(item) => item.id}
-        keyExtractor={(item) => item.toString}
+        key= {(items).toString()}
         numColumns= {3}
       />
       
