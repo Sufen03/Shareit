@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, FlatList, Image, SafeAreaView} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { darkStyles, lightStyles } from "../styles/commonStyles";
+import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { useSelector } from 'react-redux';
 import firebase from "../database/firebaseDB";
+import DropDownPicker from 'react-native-dropdown-picker';
 
 export default function IndexScreen({ navigation, route }) {
   const token = useSelector((state)=>state.auth.token)
   const [posts, setPosts] = useState([]);
   const isDark = useSelector((state) => state.accountPrefs.isDark);
   const styles = isDark ? darkStyles : lightStyles;
+
+  const [value, setValue] = useState("Food");
+
+  const [isFood, setIsFood] = useState(false)
+  const [isElectronics, setIsElectronics] = useState(false)
+  const [isClothing, setIsClothing] = useState(false)
+  const [isPersonal, setIsPersonal] = useState(false)
+  const [isFurniture, setIsFurniture] = useState(false)
+  
 
   const db = firebase.firestore().collection("posts");
 
@@ -23,8 +33,30 @@ export default function IndexScreen({ navigation, route }) {
     });
   });
 
+
+  function food() {
+  
+    setValue ("Food")
+  }
+  function electronics() {
+    setValue ("Electronics")
+  }
+  function clothing() {
+
+    setValue ("Clothing")
+  }
+  function personal() {
+  
+    setValue ("Personal Care")
+  }
+  function furniture() {
+   
+    setValue ("Furniture")
+  }
+
+
   useEffect(() => {	
-    const unsubscribe = db.onSnapshot((collection) => {
+    const unsubscribe = db.where("value", "==", value).onSnapshot((collection) => {
       const updatedPost = collection.docs.map((doc) => {
         const postObject ={
           ...doc.data(),
@@ -32,12 +64,17 @@ export default function IndexScreen({ navigation, route }) {
       };
       console.log(postObject);
       return postObject;
-      })
-      setPosts(updatedPost);
     })
-      
-    return () => unsubscribe();	
-  }, []);
+    setPosts(updatedPost);
+  })
+  return () => {
+    clearInterval(value);
+  };
+  
+  return () => unsubscribe();	
+});
+
+  
   
   
 
@@ -49,6 +86,7 @@ export default function IndexScreen({ navigation, route }) {
   function renderItem({ item }) {
     return (
       <SafeAreaView style={{flexDirection: 'row', justifyContent: 'center'}}> 
+      
         <TouchableOpacity onPress={() => navigation.navigate("Details", {id: item.id})}>
           <View
           style={{
@@ -69,8 +107,28 @@ export default function IndexScreen({ navigation, route }) {
   }
 
   return (
+
+    
     <SafeAreaView style={styles.container}>
-      <FlatList
+       
+
+    <TouchableOpacity onPress={food} style={{backgroundColor:"red", width:"15%",borderRadius:"4", textAlign:"center", marginLeft:165, marginTop:15, marginBottom:15}}>
+      <Text style={{fontSize:"25", textAlign:"center"}}>Food</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={electronics} style={{backgroundColor:"red", width:"15%",borderRadius:"4", textAlign:"center", marginLeft:165, marginTop:15, marginBottom:15}}>
+      <Text style={{fontSize:"25", textAlign:"center"}}>Electronics</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={clothing} style={{backgroundColor:"red", width:"15%",borderRadius:"4", textAlign:"center", marginLeft:165, marginTop:15, marginBottom:15}}>
+      <Text style={{fontSize:"25", textAlign:"center"}}>Clothing</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={personal} style={{backgroundColor:"red", width:"15%",borderRadius:"4", textAlign:"center", marginLeft:165, marginTop:15, marginBottom:15}}>
+      <Text style={{fontSize:"25", textAlign:"center"}}>Personal Care</Text>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={furniture} style={{backgroundColor:"red", width:"15%",borderRadius:"4", textAlign:"center", marginLeft:165, marginTop:15, marginBottom:15}}>
+      <Text style={{fontSize:"25", textAlign:"center"}}>Furniture</Text>
+    </TouchableOpacity>
+
+   <FlatList
         data={posts}
         renderItem={renderItem}
         style={{ width: "100%" }}
@@ -78,6 +136,7 @@ export default function IndexScreen({ navigation, route }) {
         keyExtractor={(item) => item.toString}
         numColumns= {3}
       />
+      
     </SafeAreaView>
   );
 }
