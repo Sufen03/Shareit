@@ -43,7 +43,7 @@ export default function CameraScreen({ navigation, route }) {
     else if(fromEdit){
       const { uri } = photo;
       dispatch({ ...dispatch(updatePicAction()), payload: photo.uri });
-    navigation.navigate("Edit")
+    navigation.navigate("Edit" , {id : post.id, image:uri , post})
     }
     else {
         // if (from account screen)

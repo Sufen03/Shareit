@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import { StyleSheet, Text, View,ScrollView, TextInput, TextEdit, TouchableOpacity, Image } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { API, API_CREATE, API_POSTS, PUT } from "../constants/API";
+
 import { commonStyles, darkStyles, lightStyles } from "../styles/commonStyles";
 import { updatePicAction } from "../redux/ducks/accountPref";
 import DropDownPicker from "react-native-dropdown-picker";
+import { doc, setDoc, updateDoc } from "firebase/firestore"; 
+
+import firebase from "../database/firebaseDB";
+
+
+const auth = firebase.auth();
 
 export default function EditScreen({ navigation, route }) {
-  const [post, setPost] = useState('');
-  //const [put, setPost] = useState({ title: "", content: "" });
+  const [post, setPost] = useState(route.params.post);
   const picture = useSelector((state) => state.accountPrefs.postPicture);
-  console.log('picute:', picture)
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [image, setImage] = useState('');
-  const [id, setId] = useState('');
-  const dispatch = useDispatch();
+  const isDark = useSelector((state) => state.accountPrefs.isDark);
+  const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
+  const image = route.params?.image
+  const id = post.id
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -29,38 +34,32 @@ export default function EditScreen({ navigation, route }) {
     {label: 'Furniture', value: 'Furniture'},
   ]);
 
-  const token = useSelector((state) => state.auth.token);
-  const isDark = useSelector((state) => state.accountPrefs.isDark);
-  const styles = { ...commonStyles, ...(isDark ? darkStyles : lightStyles) };
-  
 
-  useEffect(() => {
-    const post = route.params.post;
-    setTitle(post.title)
-    setContent(post.content)
-    setImage(post.image)
-    setId(post.id)
 
-  }, []);
 
-  async function getPost() {
+ 
+
+  async function updatePost() {
+
+    const post = {
+      value: value,
+      content: content,
+      image: image,
+      claimed: false,
+      created: firebase.firestore.Timestamp.now(),
+      id: auth.currentUser?.uid, 
+      name: auth.currentUser?.email
+    };
+
+    console.log(id)
     
     try {
-      const response = await axios.get(API + API_POSTS + "/" + id, {
-        headers: { Authorization: `JWT ${token}` },
-      });
-      
-      setPost(response.data);
+      await firebase.firestore().collection("posts").doc(id).update(post);  
+      navigation.navigate("Listing");	
     } catch (error) {
-      
-      if ((error.response.data.error = "Invalid token")) {
-        navigation.navigate("SignInSignUp");
-      }
+      console.log(error.message)
     }
-  }
-
-  function editPost() {
-    navigation.navigate("Edit");
+  
   }
 
   return (
@@ -90,9 +89,11 @@ export default function EditScreen({ navigation, route }) {
           Edit your image.
           </Text>
         </TouchableOpacity>
+
+
         <TouchableOpacity
           style={[styles.button, { marginTop: 20 }]}
-          onPress={savePost}
+          onPress={updatePost}
         >
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
@@ -100,26 +101,7 @@ export default function EditScreen({ navigation, route }) {
     </ScrollView>
   );
 
-  async function savePost() {
-    const post = {
-      title: title,
-      content: content,
-      id: id,
-      image: picture ?? image,
-    };
-    console.log('savepost:', post)
-  
-    try {
-      
-      const response = await axios.put(API + API_POSTS + "/" + id, post, {
-        headers: { Authorization: `JWT ${token}` },
-      });
-      dispatch({ ...dispatch(updatePicAction()), payload: null });
-      navigation.navigate("Index");
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
 
   // return (
   //   <View style={styles.container}>
