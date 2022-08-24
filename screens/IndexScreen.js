@@ -113,17 +113,17 @@ export default function IndexScreen({ navigation, route }) {
     <TouchableOpacity onPress={food} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:3, marginTop:15, marginBottom:15}}>
       <Text style={{ marginTop: 10, textAlign:"center"}}>Food</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={electronics} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:15, marginTop:15, marginBottom:15}}>
-      <Text style={{ marginTop: 16,textAlign:"center"}}>Electronics</Text>
+    <TouchableOpacity onPress={electronics} style={{backgroundColor:"red", width:"20%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15}}>
+      <Text style={{ marginTop: 11,textAlign:"center"}}>Electronics</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={clothing} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:15, marginTop:15, marginBottom:15}}>
-      <Text style={{ marginTop: 14,textAlign:"center"}}>Clothing</Text>
+    <TouchableOpacity onPress={clothing} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15}}>
+      <Text style={{ marginTop: 12,textAlign:"center"}}>Clothing</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={personal} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:15, marginTop:15, marginBottom:15}}>
-      <Text style={{ marginTop: 10,textAlign:"center"}}>Personal Care</Text>
+    <TouchableOpacity onPress={personal} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15}}>
+      <Text style={{ marginTop: 12,textAlign:"center"}}>Personal</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={furniture} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:15, marginTop:15, marginBottom:15}}>
-      <Text style={{  marginTop: 15,textAlign:"center"}}>Furniture</Text>
+    <TouchableOpacity onPress={furniture} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15}}>
+      <Text style={{  marginTop: 12,textAlign:"center"}}>Furniture</Text>
     </TouchableOpacity>
     </View>   
    <FlatList
