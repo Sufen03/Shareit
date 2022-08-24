@@ -68,10 +68,9 @@ export default function IndexScreen({ navigation, route }) {
     setPosts(updatedPost);
   })
   return () => {
-    clearInterval(value);
+    unsubscribe();
   };
-  
-  return () => unsubscribe();	
+
 });
 
   
