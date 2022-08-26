@@ -54,6 +54,7 @@ export default function ShowScreen({ navigation, route }) {
           </Text>
         </TouchableOpacity>
       </View>
+      <Text style={{textAlign:"center", fontFamily:'American Typewriter', fontSize:15, marginTop:20}}>After pressing claim, contact <Text style={{color:"blue"}}>{post.name}</Text> for item collection</Text>
     </ScrollView>
   );
 }
