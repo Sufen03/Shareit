@@ -109,32 +109,34 @@ export default function IndexScreen({ navigation, route }) {
 
     
     <SafeAreaView style={styles.container}>
-    <View style={{flexDirection:'row', flex: 0.2, alignContent:'center'}}>
-    <TouchableOpacity onPress={food} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:3, marginTop:15, marginBottom:15}}>
+    
+    <View style={{flexDirection:'row', alignContent:'center', height:50}}>
+    <TouchableOpacity onPress={food} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:3, marginTop:15, marginBottom:15,height:40}}>
       <Text style={{ marginTop: 10, textAlign:"center"}}>Food</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={electronics} style={{backgroundColor:"red", width:"20%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15}}>
+    <TouchableOpacity onPress={electronics} style={{backgroundColor:"red", width:"20%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15,height:40}}>
       <Text style={{ marginTop: 11,textAlign:"center"}}>Electronics</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={clothing} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15}}>
+    <TouchableOpacity onPress={clothing} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15,height:40}}>
       <Text style={{ marginTop: 12,textAlign:"center"}}>Clothing</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={personal} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15}}>
+    <TouchableOpacity onPress={personal} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15,height:40}}>
       <Text style={{ marginTop: 12,textAlign:"center"}}>Personal</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={furniture} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15}}>
+    <TouchableOpacity onPress={furniture} style={{backgroundColor:"red", width:"16%",borderRadius:"4", textAlign:"center", marginLeft:13, marginTop:15, marginBottom:15,height:40}}>
       <Text style={{  marginTop: 12,textAlign:"center"}}>Furniture</Text>
     </TouchableOpacity>
-    </View>   
+    </View> 
+    <View>
    <FlatList
         data={posts}
         renderItem={renderItem}
-        style={{ width: "100%" }}
+        style={{ width: "100%", marginTop:40 }}
         key={(item) => item.id}
         keyExtractor={(item) => item.toString}
         numColumns= {3}
       />
-      
+    </View>  
     </SafeAreaView>
   );
 }
