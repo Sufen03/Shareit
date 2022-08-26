@@ -65,8 +65,8 @@ export default function EditScreen({ navigation, route }) {
   }
 
   return (
-    <ScrollView keyboardShouldPersistTaps='handled' style={styles.container}>
-      <View style={{ margin: 20 }}>
+    <View keyboardShouldPersistTaps='handled' style={styles.container}>
+      
         <Image style={{resizeMode : 'cover', height: 250, width: '90%', marginLeft: 22, marginBottom: 20}} source={{uri: picture ?? image }}/>
         <DropDownPicker
       open={open}
@@ -99,8 +99,8 @@ export default function EditScreen({ navigation, route }) {
         >
           <Text style={styles.buttonText}>Save</Text>
         </TouchableOpacity>
-      </View>
-    </ScrollView>
+    
+    </View>
   );
 
 
