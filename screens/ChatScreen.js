@@ -31,7 +31,14 @@ export default function ChatScreen() {
     
     
 
-    })
+    },[])
+
+    useEffect(() => {
+      // Side-effect...
+      return function cleanup() {
+        // Side-effect cleanup...
+      };
+    });
 
   function sendMessages(newMessages) {
     console.log(newMessages);
